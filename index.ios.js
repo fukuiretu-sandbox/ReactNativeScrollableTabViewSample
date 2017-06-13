@@ -15,21 +15,47 @@ import {
 // import ScrollableTabView, { DefaultTabBar, } from 'react-native-scrollable-tab-view';
 import ScrollableTabView, { ScrollableTabBar, } from 'react-native-scrollable-tab-view';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Tabs from 'react-native-tabs';
 
 export default class ReactNativeScrollableTabViewSample extends Component {
+  constructor(props){
+    super(props);
+    this.state = {page:'second'};
+  }
+
   render() {
+    var self = this;
+
     return (
-      <ScrollableTabView
-        style={{ marginTop: 20, }}
-        initialPage={0}
-        renderTabBar={() => <ScrollableTabBar />}
-      >
-        <Text tabLabel='Tab #1'>My<Icon name='logo-apple' color='black' style={styles.icon} /></Text>
-        <Text tabLabel='Tab #2 word word'>favorite</Text>
-        <Text tabLabel='Tab #3 word word word'>project</Text>
-        <Text tabLabel='Tab #4 word word word word'>favorite</Text>
-        <Text tabLabel='Tab #5'>project</Text>
-      </ScrollableTabView>
+      <View style={styles.container}>
+        <ScrollableTabView
+          style={{ marginTop: 20, }}
+          initialPage={0}
+          renderTabBar={() => <ScrollableTabBar />}
+        >
+          <Text tabLabel='Tab #1'>My</Text>
+          <Text tabLabel='Tab #2 word word'>favorite</Text>
+          <Text tabLabel='Tab #3 word word word'>project</Text>
+          <Text tabLabel='Tab #4 word word word word'>favorite</Text>
+          <Text tabLabel='Tab #5'>project</Text>
+        </ScrollableTabView>
+        <Tabs
+          selected={this.state.page}
+          style={{backgroundColor:'white'}}
+          selectedStyle={{color:'red'}}
+          onSelect={el=>this.setState({page:el.props.name})}
+        >
+          <Text name="first">
+            First
+            <Icon name='logo-apple' color='black' style={styles.icon} />
+          </Text>
+          <Text name="second" selectedIconStyle={{borderTopWidth:2,borderTopColor:'red'}}>Second</Text>
+          <Text name="third">Third</Text>
+          <Text name="fourth" selectedStyle={{color:'green'}}>Fourth</Text>
+          <Text name="fifth">Fifth</Text>
+        </Tabs>
+      </View>
+
     //   <ScrollableTabView
     //   style={styles.container}
     //   renderTabBar={()=><DefaultTabBar backgroundColor='rgba(255, 255, 255, 0.7)' />}
