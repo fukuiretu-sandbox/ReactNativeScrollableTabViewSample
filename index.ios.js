@@ -28,17 +28,22 @@ export default class ReactNativeScrollableTabViewSample extends Component {
 
     return (
       <View style={styles.container}>
-        <ScrollableTabView
-          style={{ marginTop: 20, }}
-          initialPage={0}
-          renderTabBar={() => <ScrollableTabBar />}
-        >
-          <Text tabLabel='Tab #1'>My</Text>
-          <Text tabLabel='Tab #2 word word'>favorite</Text>
-          <Text tabLabel='Tab #3 word word word'>project</Text>
-          <Text tabLabel='Tab #4 word word word word'>favorite</Text>
-          <Text tabLabel='Tab #5'>project</Text>
-        </ScrollableTabView>
+        {(() => {
+          if (self.state.page === 'first') {
+            return <ScrollableTabView
+              style={{ marginTop: 20, }}
+              initialPage={0}
+              renderTabBar={() => <ScrollableTabBar />}
+            >
+              <Text tabLabel='Tab #1'>My</Text>
+              <Text tabLabel='Tab #2 word word'>favorite</Text>
+              <Text tabLabel='Tab #3 word word word'>project</Text>
+              <Text tabLabel='Tab #4 word word word word'>favorite</Text>
+              <Text tabLabel='Tab #5'>project</Text>
+            </ScrollableTabView>
+          }
+        })()}
+
         <Tabs
           selected={this.state.page}
           style={{backgroundColor:'white'}}
@@ -54,6 +59,9 @@ export default class ReactNativeScrollableTabViewSample extends Component {
           <Text name="fourth" selectedStyle={{color:'green'}}>Fourth</Text>
           <Text name="fifth">Fifth</Text>
         </Tabs>
+        <Text style={styles.instructions}>
+          Selected page: {this.state.page}
+        </Text>
       </View>
 
     //   <ScrollableTabView
